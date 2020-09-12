@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BlogRor</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <div class="container">
+    <%= render partial: "layouts/topmenu" %>
+
+    
+    <p class="notice"><%= notice %></p>
+    <div class="row">
+      <div class="col-md-9">
+        <%= yield %>
+      </div>
+      <div class="col-md-3">
+        <h6>CATEGORIES</h6>
+        <% if @categories %>
+          <%= render  "layouts/categories", categories:@categories %>
+        <% end %>
+        <h6>TAGS</h6>
+        <% if @tags %>
+        <%= render  "layouts/tags", tags:@tags %>
+      <% end %>
+      </div>
+    </div>  
+    
+    </div>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<h1>Tags</h1>
+
+
+<%= link_to 'New tag', new_tag_path, class:"btn btn-success" %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @tags.each_with_index do |tag,index| %>
+    <tr>
+      <th scope="row"><%= index %></th>
+      <td><%= tag.name %></td>       
+      <td><%= link_to 'Show', tag, class:"btn btn-primary" %></td>
+      <td><%= link_to 'Edit', edit_tag_path(tag) , class:"btn btn-primary" %></td>
+      <td><%= link_to 'Destroy', tag, method: :delete, data: { confirm: 'Are you sure?'}, class:"btn btn-danger" %></td>
+    </tr>
+    <% end %>
+    
+  </tbody>
+</table>
+
+<br>
+
+
+
