@@ -1,1 +1,21 @@
 <h1> Welcome Rails Blog</h1>
+
+<% @posts.each do |post| %>
+  <div class="card mb-3">
+    <div class="card-body">
+    <h4><%= post.title %> </h4>
+   
+    <div><%= post.body.truncate(300) %> </div>
+    </div>
+    <div class="card-footer">
+      <h6>Published at: <%= time_ago_in_words (post.created_at ) %></h6>
+      <%= link_to "read more", post_read_path(post) %>
+      <div>
+        <% post.tags.each do |tag| %>
+          <span class="badge badge-warning"><%= link_to tag.name, search_by_tag_path(tag.name) %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+</table>

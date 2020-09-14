@@ -6,8 +6,22 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Post.delete_all
 Tag.delete_all
+Category.delete_all
 
 Tag.create(name:"javascript")
 Tag.create(name:"ruby")
 Tag.create(name:"react")
+
+
+cat_web = Category.create(name:"Web Development", description:"All about Web Development")
+cat_prog = Category.create(name:"Programming", description:"All about Programming")
+
+10.times do |i|
+   Post.create(
+    title:"Post #{i}",
+    body: "Post #{i} body goes here...",
+    category: i % 2 == 0 ? cat_web: cat_prog
+  )
+end

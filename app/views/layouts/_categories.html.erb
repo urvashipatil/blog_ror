@@ -1,5 +1,5 @@
 <ul>
     <% categories.each do |category| %>
-      <li><%= category.name %></li>
+      <li><%= category.name %> (<%= category.posts.size %>)</li>
     <% end %>
 </ul>
