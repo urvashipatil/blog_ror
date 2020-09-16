@@ -1,6 +1,6 @@
 const { environment } = require("@rails/webpacker");
 
-const webpack = rquire("webpack");
+const webpack = require("webpack");
 
 environment.plugins.append(
   "Provide",

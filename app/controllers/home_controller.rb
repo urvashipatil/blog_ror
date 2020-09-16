@@ -13,7 +13,13 @@ class HomeController <ApplicationController
   def index  
     @categories = Category.all.includes(:posts)
     @tags = Tag.includes(:posts).all  
-    @posts =Post.includes(:tags).published  # default_scope OR
+    @posts =Post
+            .includes(:tags)
+            .published   # default_scope OR
+            .page(params[:page])
+            .per(5)
+             
+    
     # @posts =Post.order_by_latest.published
   end
 
@@ -40,5 +46,25 @@ class HomeController <ApplicationController
     end
     render "home/index"
   end
+
+  def search   
+    if params.has_key? (:search)
+      # @posts = Post.where(title: params[:search])          
+      #               .includes(:tags)
+      #               .published   # default_scope OR
+      #               .page(params[:page])
+      #               .per(5)
+
+      @posts =Post.joins(:tags)                  
+                  .where("lower(title) like ? or lower(tags.name) like ? ", "%#{params[:search]}%", "%#{params[:search]}%" )
+                  .page(params[:page])
+                  .per(5)
+                  
+    end
+
+    render "home/index"
+  end
+
+
 
 end

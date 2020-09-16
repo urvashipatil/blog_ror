@@ -1,7 +1,9 @@
 class Post < ApplicationRecord
   belongs_to :category
-  has_many :taggings
+  belongs_to :user
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
+  has_rich_text :body
 
   default_scope {order(created_at: :desc)  }
   scope  :published,  -> {where(published: true)} 
@@ -23,8 +25,6 @@ class Post < ApplicationRecord
     end
 
     puts tag_names.split(",")
-   
-    # 
     
     self.tags = tag_names.split(",").map do |tag_name|
       unless tag_name.blank?
@@ -33,7 +33,10 @@ class Post < ApplicationRecord
       end
     end
 
+    # self.tag_ids = self.tags.map(&:id)
+
     p "***********************************self.tags self.tags self.tags"
     p self.tags
+    
   end
 end

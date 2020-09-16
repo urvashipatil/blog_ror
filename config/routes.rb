@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :posts
   resources :categories
   resources :tags
@@ -12,4 +13,8 @@ Rails.application.routes.draw do
   get 'home/read/:id' , to:'home#read' , as: :post_read
 
   get 'home/:tag/posts' , to:'home#search_by_tag' , as: :search_by_tag
+
+  # post 'home/search' , as: :home_search  # OR
+
+  get 'home/search' , as: :home_search
 end

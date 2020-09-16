@@ -1,5 +1,7 @@
 class TagsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_tag, only: [:show, :destroy, :edit, :update]
+
   def index
     @tags = Tag.all
 

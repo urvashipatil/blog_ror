@@ -1,14 +1,25 @@
+
+<%= form_with(url: home_search_path , method: "get",local: true) do |form| %> 
+    <div class="field">
+        <%= form.label :Search %>
+        <%= form.text_field :search %>
+        <%= form.submit "Search" %>
+    </div>
+<% end %>
+
 <h1> Welcome Rails Blog</h1>
 
+<%= paginate @posts %>
 <% @posts.each do |post| %>
   <div class="card mb-3">
     <div class="card-body">
     <h4><%= post.title %> </h4>
    
-    <div><%= post.body.truncate(300) %> </div>
+    <div><%= post.body %></div>
     </div>
     <div class="card-footer">
-      <h6>Published at: <%= time_ago_in_words (post.created_at ) %></h6>
+      <span>Published at: <%= time_ago_in_words (post.created_at ) %></span>
+      <span>by <%= post.user.email %></span>
       <%= link_to "read more", post_read_path(post) %>
       <div>
         <% post.tags.each do |tag| %>
