@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   # post 'home/search' , as: :home_search  # OR
 
   get 'home/search' , as: :home_search
+
+  post 'home/comments/:post_id', to: 'home#comments', as: :comments
 end

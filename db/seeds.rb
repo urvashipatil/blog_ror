@@ -6,6 +6,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'faker'
+
+puts "Deleting tables..."
+
+connection = ActiveRecord::Base.connection()
+connection.execute("delete from action_text_rich_texts");
+connection.execute("delete from active_storage_attachments");
+connection.execute("delete from active_storage_blobs");
+# connection.execute("delete from friendly_id_slugs");
+connection.close()
+
+
+Comment.delete_all
 User.delete_all
 Tagging.delete_all
 Post.delete_all
@@ -32,6 +45,7 @@ admin = User.create(
   password_confirmation: "12345678"
 )
 
+
 10.times do |i|
    Post.create(
     user: i % 2 == 0 ?urvashi : admin,
@@ -39,6 +53,18 @@ admin = User.create(
     body: "Post #{i} body goes here...",
     published:true,
     category: i % 2 == 0 ? cat_web: cat_prog,
-    tags: i % 2 == 0 ? [tag_js,tag_ruby]: [tag_react]
+    tags: i % 2 == 0 ? [tag_js,tag_ruby]: [tag_react]  
   )
+end
+
+
+puts "Adding comments"
+
+Post.all.each do |post|   
+  post.comments.build(
+    title:Faker::ChuckNorris.fact,
+    content: Faker::ChuckNorris.fact,
+    user: urvashi      
+  ) 
+  post.save
 end

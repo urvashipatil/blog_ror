@@ -4,5 +4,47 @@
     <span class="badge badge-info"><%= @post.category.name %></span>
   </div>
   <div><%= @post.body %></div>
+  <hr />
+
+  <div class="row mt-3">
+  <div class="col-md-12">
+    <h4>Start Conversations</h4>   
+    <%= form_with url: comments_url(@post)  , local: true, scope: :comment  do |form|  %>
+      <div class="field">
+        <%= form.label :title %>
+        <%= form.text_field :title %>
+      </div>
+
+      <div class="field">
+        <%= form.label :content %>
+        <%= form.text_area :content %>
+      </div>
+      <div class="actions">
+          <%= form.submit %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <h4>Conversations</h4>      
+    </div>
+  </div>
+
+  <% @post.comments.order("created_at desc").each do |comment| %>
+    <div class="container">
+      <div class="row card mb-3 p-2">
+        <div class="col-md-12">
+          <header style="background-color:#dee2e6; padding:5px" class="mb-3"><%= comment.title %></header>
+          <div><%= comment.content  %></div>
+          <footer class="text-muted mt-2">
+            commented by <%= comment.user.email  %> about <%= time_ago_in_words(comment.created_at) %> ago
+          </footer>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <%= link_to "back", root_url %>
 </div>

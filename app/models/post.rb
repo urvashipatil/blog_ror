@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :category
   belongs_to :user
+  has_many :comments 
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   has_rich_text :body
